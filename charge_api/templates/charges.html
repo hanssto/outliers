@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Charges{% endblock %}
+{% block content %}
+<h2>Upload</h2>
+<form class="form-inline" action="/upload" method="post" enctype="multipart/form-data">
+    <label for="id_charges_file">Charges file</label>
+    <input id="id_charges_file" class="form-control" type="file" name="charges_file">
+    <input type="submit" value="Upload">
+</form>
+
+<h2>Filters</h2>
+<form class="form-inline" method="get">
+    <label for="id_country">Country</label>
+    <select id="id_country" class="form-control" name="country_code">
+        <option value="">Any</option>
+    {% for country in countries %}
+        <option value="{{ country.country_code }}"{% if country.country_code == country_code %} selected="selected"{% endif %}>{{ country.country_code }}</option>
+    {% endfor %}
+    </select>
+    <label for="id_valid">Valid</label>
+    <select id="id_valid" class="form-control" name="valid">
+    {% for option in valid_choices %}
+        <option value="{% if option.0 == none %}{% else %}{{ option.0 }}{% endif %}"{% if valid == option.0 %} selected="selected"{% endif %}>{{option.1}}</option>
+    {% endfor %}
+    </select>
+    <input type="submit" value="Filter"/>
+</form>
+
+<div id="dist-overview">
+<h2>Distributions</h2>
+{% for dist in distributions %}
+<h3>{{ dist.country_code }}</h3>
+<dl class="dl-horizontal">
+    <dt>Median</dt><dd>{{ dist.median }}</dd>
+    <dt>Adj MAD</dt><dd>{{ dist.mad_threshold }}</dd>
+    <dt>Min acc.</dt><dd>{{ dist.median - dist.mad_threshold }}</dd>
+    <dt>Max acc.</dt><dd>{{ dist.median + dist.mad_threshold }}</dd>
+</dl>
+{% endfor %}
+</div>
+
+<h2>Charges ({{ charges|length }})</h2>
+<table class="table table-condensed table-charges">
+    <tr>
+        <th>Country</th>
+        <th>City</th>
+        <th>Supp.</th>
+        <th>Curr.</th>
+        <th>Value</th>
+    </tr>
+{% for charge in charges %}
+    <tr>
+        <td>{{ charge.country_code }}</td>
+        <td>{{ charge.city_code }}</td>
+        <td>{{ charge.supplier_id }}</td>
+        <td>{{ charge.currency }}</td>
+        <td{% if not charge.valid %} class="warning"{% endif %}>{{ charge.value }}</td>
+    </tr>
+{% endfor %}
+</table>
+{% endblock %}

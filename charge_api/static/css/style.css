@@ -1,0 +1,10 @@
+.table-charges {
+    width: 75%;
+}
+
+#dist-overview {
+    position: fixed;
+    right: 0px;
+    top: 0;
+    width: 300px;
+}
