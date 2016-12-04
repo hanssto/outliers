@@ -1,6 +1,6 @@
-= Application for outliers in terminal handling charges =
+# Application for outliers in terminal handling charges
 
-== Overview ==
+## Overview
 
 I read a little bit and decided to go for an approach using Median Absolute
 Deviation, and some factor around it. I prime the database with the known good
@@ -27,27 +27,27 @@ with JSON data.
 I included a set of stubs for a REST API and an example test case. I'll expand
 on these if I find the time.
 
-== Installation ==
+## Installation
 
 Optionally install and activate a virtualenv:
 
-  virtualenv some_path
-  . some_path/bin/activate
-  pip install --upgrade pip  # Necessary on my Ubuntu at least.
+    virtualenv some_path
+    . some_path/bin/activate
+    pip install --upgrade pip  # Necessary on my Ubuntu at least.
 
 Install the dependencies:
 
-  pip install -r requirements.txt
+    pip install -r requirements.txt
 
-== Running ==
+## Running
 
 In a shell, run:
 
-  python run.py
+    python run.py
 
 Open your browser and point it to:
 
-  http://127.0.0.1:5000/
+    http://127.0.0.1:5000/
 
 You should now see an empty list of registered charges, and an initial set of
 distribution information. Choosing a file and clicking "Upload", should import
@@ -55,9 +55,9 @@ charges from the file.
 
 Use the filters to drill down on country and validity.
 
-== Tests ==
+## Tests
 
 So far, only one test case is implemented as an example. Nose should find and
 execute this and any others added later:
 
-  nosetsts
+    nosetsts
